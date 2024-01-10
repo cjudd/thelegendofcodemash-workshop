@@ -50,6 +50,7 @@ class Preloader extends Phaser.Scene {
 ```
 
 2. Edit GameConfig.js. Add the Preloader as the first scene in the scene list.
+
 ```
 scene: [Preloader,DungeonScene]
 ```
