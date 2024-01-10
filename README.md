@@ -100,7 +100,7 @@ Create the hero, Gearhead and make them run around the map.
 1. Edit DungeonScene. At the end of the create function, add the gearhead sprite.
 ```
 // Display Gearhead
-const gearhead = this.add.sprite(120,120,'gearhead','gearhead-walk-down-01.png')
+const gearhead = this.physics.add.sprite(120,120,'gearhead','gearhead-walk-down-01.png')
 ```
 
 ### Animate Hero
@@ -234,4 +234,80 @@ this.gearhead.body.offset.y = 10
 // Camera Follow
 this.cameras.main.startFollow(this.gearhead, true)
 this.cameras.main.setBounds(0, 0, wallsLayer.displayWidth, wallsLayer.displayHeight);
+```
+
+## Create Enemy
+
+1. In Preload.js add the kali sprite at the end of preload.
+```
+this.load.atlas('kali', '../../assets/sprites/kali.png', '../../assets/sprites/kali.json')
+```
+2. In Kali.js, add create Kali animation.
+```
+function createKaliAnimation(anims) {
+    anims.create({
+        key: 'kali-walk-down-01.png',
+        frames: [{ key: 'kali', frame: 'kali-walk-down-01.png'}]
+    })
+
+    anims.create({
+        key: 'kali-walk-down',
+        frames: anims.generateFrameNames('kali', {start: 1, end: 9, prefix: 'kali-walk-down-0', suffix: '.png'} ),
+        repeat: -1,
+        frameRate: 15
+    })
+
+    anims.create({
+        key: 'kali-idle-down',
+        frames: [{ key: 'kali', frame:'kali-walk-down-01.png' }]
+    })
+
+    anims.create({
+        key: 'kali-walk-up',
+        frames: anims.generateFrameNames('kali', {start: 1, end: 9, prefix: 'kali-walk-up-0', suffix: '.png'} ),
+        repeat: -1,
+        frameRate: 15
+    })
+
+    anims.create({
+        key: 'kali-idle-up',
+        frames: [{ key: 'kali', frame:'kali-walk-up-01.png' }]
+    })
+
+    anims.create({
+        key: 'kali-walk-left',
+        frames: anims.generateFrameNames('kali', {start: 1, end: 9, prefix: 'kali-walk-left-0', suffix: '.png'} ),
+        repeat: -1,
+        frameRate: 15
+    })
+
+    anims.create({
+        key: 'kali-idle-left',
+        frames: [{ key: 'kali', frame:'kali-walk-left-01.png' }]
+    })
+
+    anims.create({
+        key: 'kali-walk-right',
+        frames: anims.generateFrameNames('kali', {start: 1, end: 9, prefix: 'kali-walk-right-0', suffix: '.png'} ),
+        repeat: -1,
+        frameRate: 15
+    })
+
+    anims.create({
+        key: 'kali-idle-right',
+        frames: [{ key: 'kali', frame:'kali-walk-right-01.png' }]
+    })
+}
+```
+
+3. In DungeonScene at the end of create method, add Kali enemy, adjust collision box and configure it to collide with walls and hero.
+```
+createKaliAnimation(this.anims)
+
+const kali = this.physics.add.sprite(220,220,'kali','kali-walk-down-01.png')
+kali.body.setSize(this.gearhead.width * 0.6, this.gearhead.height * 0.8)
+kali.body.offset.y = 10
+
+this.physics.add.collider(kali, wallsLayer)
+this.physics.add.collider(this.gearhead, kali)
 ```
