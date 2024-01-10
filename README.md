@@ -55,6 +55,7 @@ scene: [Preloader,DungeonScene]
 ```
 
 3. Edit DungeonScene.js. Clean the old code out of preload and create.
+
 ```
 class DungeonScene extends Phaser.Scene {
     
@@ -77,7 +78,7 @@ class DungeonScene extends Phaser.Scene {
 }
 ```
 
-4. Continue editing DungeonScene.js by adding to the create function the making of the tilemap, adding the tileset image, creating layers for ground and wall and configuring collision.
+3. Continue editing DungeonScene.js by adding to the create function the making of the tilemap, adding the tileset image, creating layers for ground and wall and configuring collision.
 ```
     create() {
         const map = this.make.tilemap({ key:'dungeon' })
